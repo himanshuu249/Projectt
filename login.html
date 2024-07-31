@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Doctor's Appointment System</title>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="login1.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form action="#" class="sign-in-form">
+          <h2 class="title">Sign in</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="email" placeholder="Email" id="login_email" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" id="login_password" />
+          </div>
+          <input type="submit" value="Login" class="btn solid" id="loginbtn" />
+        </form>
+        <form action="#" class="sign-up-form">
+          <h2 class="title">Sign up</h2>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="email" placeholder="Email" id="register_email" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" placeholder="Password" id="register_password" />
+          </div>
+          <input type="submit" class="btn" value="Sign up" id="register" />
+          <p class="social-text">Or Sign up with social platforms</p>
+          <div class="social-media">
+            <a href="#" class="social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-google"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>New here ?</h3>
+          <p>
+            Sign Up with us and start your fitness journey.
+          </p>
+          <button class="btn transparent" id="sign-up-btn">
+            Sign up
+          </button>
+        </div>
+        <img src="C:\Users\Asus\OneDrive\Desktop\WEBSITE\Images\login\log.svg" class="image" alt="" />
+      </div>
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>One of us ?</h3>
+          <p>
+            Sign in and continue shopping.
+          </p>
+          <button class="btn transparent" id="sign-in-btn">
+            Sign in
+          </button>
+        </div>
+        <img src="C:\Users\Asus\OneDrive\Desktop\WEBSITE\Images\login\register.svg" class="image" alt="" />
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="indexl.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCXr9tGXmPSv1gA7q7nGphjrEfopfeMsi4",
+      authDomain: "login-with-firebase-data-edac0.firebaseapp.com",
+      databaseURL: "https://login-with-firebase-data-edac0-default-rtdb.firebaseio.com",
+      projectId: "login-with-firebase-data-edac0",
+      storageBucket: "login-with-firebase-data-edac0.appspot.com",
+      messagingSenderId: "626142758874",
+      appId: "1:626142758874:web:ffc0bb5f43822dbb4e22e3"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
+    
+
+    // Registration Form
+    document.getElementById("register").addEventListener("click", function () {
+      const email = document.getElementById("register_email").value;
+      const password = document.getElementById("register_password").value;
+
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("Registration successful:", user);
+          alert("Registration successful!");
+
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          console.error("Registration failed:", errorMessage);
+          alert("Registration failed: " + errorMessage);
+
+        });
+
+
+    });
+
+    // Login Form
+    document.getElementById("loginbtn").addEventListener("click", function () {
+      const email = document.getElementById("login_email").value;
+      const password = document.getElementById("login_password").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("Login successful:", user);
+          window.location.assign('index(logged in).html');
+          alert("Login successful!");
+          // You can redirect the user to another page or perform other actions after successful login
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          console.error("Login failed:", errorMessage);
+          alert("Login failed " );
+        });
+    });
+  </script>
+
+</body>
+
+</html>
